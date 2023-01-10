@@ -49,7 +49,13 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 $kernel = $app->make(Kernel::class);
 
 $response = $kernel->handle(
-    $request = Request::capture()
-)->send();
+	$request = Request::capture()
+);
+
+if(DB::connection()->getDatabaseName()){
+	echo "Polaczenie z baza: ".DB::connection()->getDatabaseName();
+}
+
+$response->send();
 
 $kernel->terminate($request, $response);
